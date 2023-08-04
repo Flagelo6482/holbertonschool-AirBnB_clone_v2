@@ -115,42 +115,31 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
+        arg_split = args.split(" ")
         if not args:
             print("** class name missing **")
             return
-        # Obtener el nombre de la clase y los parametros ingresados
-        # por el usuario
-        args = arg.split()
-        class_name = args[0]
-
-        if class_name not in HBNBCommand.classes:
+        elif arg_split[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        try:
-            # Crear un diccionario con los parametros ingresados por
-            # el usuario
-            params_dict = {}
-
-            for param in args[1:]:
-                key, value = param.split('=')
-                # Convertir los valores segun su tipo
-                if value.startswith('"') and value.endswith('"'):
-                    # Valor de cadena
-                    value = value[1:-1].replace('_', ' ')
-                elif '.' in value:
-                    # Valor flotante
-                    value = float(value)
-                else:
-                    # Valor entero
-                    value = int(value)
-                params_dict[key] = value
-            # Crear una instancia de la clase con los parametros dados
-            new_instance = HBNBCommand.classes[args]()
-            storage.save()
-            print(new_instance.id)
-            storage.save()
-        except:
-            print("** Invalid parameters **")
+        input_dict = {}
+        parameter_split = arg_split[1:]
+        for value in parameter_split:
+            parameter_key, parameter_value = value.split("=")
+            if (parameter_value[0] == '"'):
+                var_to_replace = parameter_value[1:-1].replace("_", " ")
+                input_dict[parameter_key] = var_to_replace
+            elif '.' in parameter_value:
+                parameter_value = float(parameter_value)
+                input_dict[parameter_key] = parameter_value
+            else:
+                parameter_value = int(parameter_value)
+                input_dict[parameter_key] = parameter_value
+        new_instance = HBNBCommand.classes[arg_split[0]]()
+        new_instance.__dict__.update(input_dict)
+        storage.new(new_instance)
+        print(new_instance.id)
+        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
