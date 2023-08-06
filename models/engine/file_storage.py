@@ -19,7 +19,7 @@ class FileStorage:
         return FileStorage.__objects
 
     def delete(self, obj=None):
-        """function to delete"""
+        """Function to delete"""
         if obj:
             for k, v in FileStorage.__objects.items():
                 if v == obj:
