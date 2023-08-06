@@ -4,25 +4,23 @@
 """ City Module for HBNB project """
 
 
-from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
-from os import environ
-from sqlalchemy.orm import relationship, backref
-from models.place import Place
+from models.base_model import BaseModel
+from models.base_model import Base
+from sqlalchemy import Column
+from sqlalchemy import ForeignKey
+from sqlalchemy import String
+from sqlalchemy.orm import relationship
+import os
 
-
-if environ.get('HBNB_TYPE_STORAGE') == 'db':
-    class City(BaseModel, Base):
-        """ The city class, contains state ID and name """
+class City(BaseModel, Base):
+    if os.getenv("HBNB_TYPE_STORAGE") == "db":
+        """ defines the attributes to be stored in the DB """
         __tablename__ = 'cities'
         name = Column(String(128), nullable=False)
         state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
-        places = relationship("Place", backref="city",
-                              cascade="all, delete")
+        places = relationship('Place', backref='cities', cascade='delete')
 
-else:
-    class City(BaseModel):
-        """ The city class, contains state ID and name """
-        name = ''
-        state_id = ''
+    else:
+        """defines the attributes to be stored in the JSON"""
+        state_id = ""
+        name = ""
