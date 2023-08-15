@@ -22,6 +22,7 @@ def hbnb():
 
 @app.route('/c/<text>', strict_slashes=False)
 def c_variable(text):
+    """Adding an argument to the definition"""
     return "C {}".format(text.replace('_', ' '))
 
 
