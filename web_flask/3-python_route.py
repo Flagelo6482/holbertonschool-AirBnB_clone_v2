@@ -30,10 +30,10 @@ def c_variable(text):
 def python(text):
     """Function that receives an argument"""
     if text == '':
-        text = 'cool'
+        text = 'is cool'
     else:
         text = text.replace('_', ' ')
-    return "Python is {}".format(text)
+    return "Python {}".format(text)
 
 
 if __name__ == '__main__':
