@@ -26,14 +26,11 @@ def c_variable(text):
     return "C {}".format(text.replace('_', ' '))
 
 
+@app.route('/python/', defaults={'text': 'is cool'}, strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
 def python(text):
     """Function that receives an argument"""
-    if text == '':
-        text = 'is cool'
-    else:
-        text = text.replace('_', ' ')
-    return "Python {}".format(text)
+    return "Python {}".format(text.replace('_', ' '))
 
 
 if __name__ == '__main__':
