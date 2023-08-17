@@ -14,7 +14,7 @@ class FileStorage:
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
-        
+
         dic = {}
         if cls:
             for key, value in FileStorage.__objects.items():
@@ -65,3 +65,7 @@ class FileStorage:
         if obj:
             key = "{}.{}".format(type(obj).__name__, obj.id)
             del self.__objects[key]
+
+    def close(self):
+        """Call reload() method"""
+        self.reload()

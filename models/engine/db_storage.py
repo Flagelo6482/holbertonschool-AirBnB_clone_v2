@@ -89,3 +89,7 @@ class DBStorage:
         """discard the Session itself"""
         if self.__session:
             self.__session.close()
+
+    def close(self):
+        """Method 'close()'"""
+        self.__session.remove()
