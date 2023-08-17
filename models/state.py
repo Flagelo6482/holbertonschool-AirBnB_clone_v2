@@ -12,19 +12,20 @@ import os
 
 if os.getenv("HBNB_TYPE_STORAGE") == "db":
     class State(BaseModel, Base):
-        """Class State"""
+        """ State class """
+
         __tablename__ = 'states'
         name = Column(String(128), nullable=False)
         cities = relationship(
-                              "City",
-                              backref='state',
-                              cascade="all, delete-orphan"
-                              )
+                                "City",
+                                backref='state',
+                                cascade="all, delete-orphan"
+                                )
 
 else:
     class State(BaseModel):
-        """Class State"""
-        nombre = ""
+        """ State class """
+        name = ""
 
         @property
         def cities(self):
@@ -34,4 +35,4 @@ else:
             for city in storage.all(City).values():
                 if city.state_id == self.id:
                     city_list.append(city)
-                return city_list
+            return city_list
