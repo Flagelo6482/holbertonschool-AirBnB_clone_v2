@@ -45,11 +45,10 @@ def task5(n):
     return render_template('5-number.html', n=n)
 
 
-@app.route('/number_odd_or_even/<n>', strict_slashes=False)
+@app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
 def task6(n):
     """Returns the parameter 'n' if it is integer"""
-    return render_template('6-number_odd_or_even.html', n=n,
-                           result='even' if n % 2 == 0 else 'odd')
+    return render_template('6-number_odd_or_even.html', data=n)
 
 
 if __name__ == '__main__':
