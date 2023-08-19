@@ -12,10 +12,13 @@ app = Flask(__name__)
 
 @app.teardown_appcontext
 def close(exception):
+    """remove session from SQLAlchemy"""
     storage.close()
+
 
 @app.route('/states_list', strict_slashes=False):
 def states_list():
+    """Path to display html page"""
     states = storage.all(State).values()
     return render_template('7-states_list.html', my_dict=states)
 
